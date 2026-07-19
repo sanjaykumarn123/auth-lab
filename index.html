@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecureBank — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ░░ Background particles ░░ -->
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- ░░ LOGIN PAGE ░░ -->
+  <div id="loginPage" class="page active">
+    <div class="card">
+      <div class="brand">
+        <div class="brand-icon">🔐</div>
+        <h1>SecureBank</h1>
+        <p class="tagline">Enterprise Security Portal</p>
+      </div>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="field">
+          <label for="username">Username</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input id="username" type="text" placeholder="Enter your username" required/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔑</span>
+            <input id="password" type="password" placeholder="Enter your password" required/>
+            <button type="button" class="toggle-pw" id="togglePw">👁</button>
+          </div>
+        </div>
+
+        <div id="errorMsg" class="error-msg hidden">
+          <span>⚠</span> Invalid credentials. Access denied.
+        </div>
+
+        <button type="submit" class="btn-login" id="submitBtn">
+          <span id="btnText">Sign In</span>
+          <span id="btnSpinner" class="spinner hidden"></span>
+        </button>
+      </form>
+
+      <div class="hint-box">
+        <p><strong>Demo Credentials</strong></p>
+        <p>Username: <code>admin</code> &nbsp;|&nbsp; Password: <code>admin123</code></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ DASHBOARD PAGE ░░ -->
+  <div id="dashboardPage" class="page">
+    <div class="dashboard">
+      <header class="dash-header">
+        <div class="dash-brand">
+          <span>🔐</span> SecureBank Portal
+        </div>
+        <div class="dash-user">
+          <span class="user-badge" id="loggedUser"></span>
+          <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+      </header>
+
+      <div class="dash-body">
+        <div class="welcome-banner">
+          <div class="welcome-icon">✅</div>
+          <div>
+            <h2>Access Granted</h2>
+            <p>Welcome to the SecureBank Admin Dashboard. You are now authenticated.</p>
+          </div>
+        </div>
+
+        <div class="auth-badge" id="authBadge">
+          <!-- filled by JS -->
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-label">Total Balance</div>
+            <div class="stat-value">$4,82,390.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-label">Transactions</div>
+            <div class="stat-value">1,249</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🏦</div>
+            <div class="stat-label">Active Accounts</div>
+            <div class="stat-value">38</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🔒</div>
+            <div class="stat-label">Security Level</div>
+            <div class="stat-value" style="color:#f87171">LOW ⚠</div>
+          </div>
+        </div>
+
+        <div class="vuln-notice">
+          <div class="vuln-title">🛑 Vulnerability Demonstrated</div>
+          <p>Authentication was bypassed by intercepting the HTTP response via <strong>Burp Suite</strong> and modifying:</p>
+          <div class="code-diff">
+            <div class="diff-line removed"><span>−</span> HTTP/1.1 <strong>403 Forbidden</strong> &nbsp;→&nbsp; <code>{"isLogin": false}</code></div>
+            <div class="diff-line added"><span>+</span> HTTP/1.1 <strong>200 OK</strong> &nbsp;→&nbsp; <code>{"isLogin": true}</code></div>
+          </div>
+          <p style="margin-top:12px; font-size:0.82rem; color:#94a3b8;">
+            The server correctly rejected the request, but the client blindly trusts the response body — allowing full access.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>
